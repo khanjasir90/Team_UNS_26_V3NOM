@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Alert from './Components/Alert/Alert';
 import LandingPage from './Components/LandingPage/LandingPage';
 import SignIn from './Components/SignIn/SignIn';
 import SignUp from './Components/SignUp/SignUp';
@@ -14,6 +15,7 @@ function App() {
     const { showsignIn } = signincontext;
     return (
         <>
+            <Alert />
             {
                 showsignIn && <SignIn />
             }

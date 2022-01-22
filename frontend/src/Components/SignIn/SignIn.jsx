@@ -1,10 +1,27 @@
 import React, { useContext } from "react";
 import SignInContext from "../../contexts/SignInContext/SignInContext";
 import "./SignIn.css";
+import { useDispatch } from "react-redux";
+import { notiAction } from "../../store/notificationSlice";
 
 const SignIn = () => {
   const signincontext = useContext(SignInContext);
   const { hideSignIn } = signincontext;
+  const dispatch = useDispatch();
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    dispatch(
+      notiAction.enableNotification({
+        heading: "Success",
+        message: "HEllo WoRld",
+      })
+    );
+    setTimeout(() => {
+      dispatch(notiAction.disableNotification());
+    }, 2000);
+  };
+
   return (
     <div className="signin__main flex__center">
       <div className="signin__cont">
@@ -20,7 +37,11 @@ const SignIn = () => {
               <input className="input__field"></input>
             </div>
           </div>
-          <button type="submit" className="button__primary">
+          <button
+            type="submit"
+            className="button__primary"
+            onClick={(e) => handleSignIn(e)}
+          >
             Sign In
           </button>
         </form>
