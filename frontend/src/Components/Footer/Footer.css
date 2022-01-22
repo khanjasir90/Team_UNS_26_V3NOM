@@ -1,0 +1,25 @@
+.footer__main {
+  width: 90%;
+  padding: 5%;
+  background: #02c39a;
+}
+.footer__links {
+  list-style: none;
+}
+.f__link {
+  margin-left: 20px;
+  cursor: pointer;
+  color: #f0f3bd;
+}
+@media screen and (max-width: 768px) {
+  .footer__main {
+    flex-direction: column;
+  }
+  .footer__right {
+    margin: 20px 0;
+  }
+  .f__link {
+    margin: 10px;
+    font-size: 15px;
+  }
+}

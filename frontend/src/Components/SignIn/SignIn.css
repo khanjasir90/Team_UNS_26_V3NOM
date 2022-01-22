@@ -1,0 +1,19 @@
+.signin__main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+.signin__cont {
+  width: 500px;
+  height: 300px;
+  padding: 20px;
+  background: #fff;
+  position: relative;
+}
+.signin__cont > h1 {
+  color: #02c39a;
+}

@@ -1,0 +1,103 @@
+.signup__main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+.signup__cont {
+  background: #fff;
+  height: 600px;
+  width: 800px;
+  position: relative;
+}
+.signup__left,
+.signup__right {
+  width: 50%;
+  height: 100%;
+}
+.signup__left {
+  width: 45%;
+  height: 95%;
+  padding: 2.5%;
+}
+.signup__left > h1 {
+  color: #02c39a;
+}
+.signup__right {
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url("https://images.unsplash.com/photo-1623211270083-5743da6c67ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
+  background-position: center;
+  background-size: cover;
+}
+.close__btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+/* FORM */
+.signup__form {
+  margin-top: 10%;
+}
+.signup__input__box {
+  width: 100%;
+  margin: 15px 0;
+}
+.input__box {
+  margin: 5px 0;
+  width: 100%;
+}
+.input__field__label {
+  color: #02c39a;
+  font-size: 12px;
+}
+.input__field {
+  padding: 10px;
+  width: 90%;
+  border: 2px solid rgb(233, 233, 233);
+  border-radius: 3px;
+}
+.input__field:focus {
+  outline: none;
+  border: 2px solid #02c39a;
+}
+.select__form {
+  margin: 5px 0;
+  padding: 10px;
+  width: 96%;
+  border: 2px solid rgb(233, 233, 233);
+}
+.select__form:focus {
+  outline: none;
+  border: 2px solid #02c39a;
+}
+
+@media screen and (max-width: 650px) {
+  .signup__cont {
+    height: 100vh;
+    width: 100vw;
+  }
+  .signup__right {
+    width: 25%;
+  }
+  .signup__left {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .signup__right {
+    display: none !important;
+  }
+  .signup__left {
+    width: 95%;
+  }
+}

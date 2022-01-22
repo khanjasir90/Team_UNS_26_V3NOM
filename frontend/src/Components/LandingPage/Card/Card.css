@@ -1,0 +1,29 @@
+.landing__page__card {
+  max-width: 300px;
+  min-width: 300px;
+  width: 100%;
+  min-height: 400px;
+  max-height: 400px;
+  overflow: hidden;
+  position: relative;
+  color: #02c39a;
+}
+.landing__page__card:hover .card__overlay {
+  transform: translateY(0%);
+}
+.card__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #02c39a;
+  min-width: 260px;
+  min-height: 360px;
+  padding: 20px;
+  z-index: 2;
+  transition: all 0.3s ease;
+  transform: translateY(100%);
+}
+.card__overlay p {
+  color: #05668d;
+  font-size: 20px;
+}
