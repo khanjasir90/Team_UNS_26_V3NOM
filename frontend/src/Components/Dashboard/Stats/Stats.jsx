@@ -12,6 +12,8 @@ import {
 } from "chart.js";
 import { Line, Pie } from "react-chartjs-2";
 import "./Stats.css";
+import { useDispatch, useSelector } from "react-redux";
+import { GetCosts } from "../../../store/farmerSlice";
 
 ChartJS.register(
   CategoryScale,
@@ -23,7 +25,6 @@ ChartJS.register(
   Legend,
   ArcElement
 );
-
 const optionsWeather = {
   scales: {
     y: {
@@ -98,11 +99,21 @@ const cropOptions = {
 const Stats = () => {
   const [lat, setLat] = useState([]);
   const [long, setLong] = useState([]);
+  // eslint-disable-next-line
   const [data, setData] = useState([]);
-
   const [Labels, setLabels] = useState([]);
   const [temps, setTemps] = useState([]);
   const [rains, setRains] = useState([]);
+
+  const dispatch = useDispatch();
+
+  const costs_data = useSelector((store) => store.farmer);
+
+  useEffect(() => {
+    dispatch(GetCosts());
+    console.log(costs_data);
+    // eslint-disable-next-line
+  }, []);
 
   const getLabels = (data) => {
     const labelreq = [];

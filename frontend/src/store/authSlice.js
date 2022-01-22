@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import history from "../history";
 import { notiAction } from "./notificationSlice";
+
 
 const authSlice = createSlice({
     name: "auth",
@@ -82,6 +84,7 @@ export const signin = (data) => {
                 dispatch(notiAction.disableNotification());
             }, 2000);
         } else {
+            history.push('/dashboard/stats')
             dispatch(notiAction.enableNotification({
                 message: "User login Successful !",
                 heading: "Success"
