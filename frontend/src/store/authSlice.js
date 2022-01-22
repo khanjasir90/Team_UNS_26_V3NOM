@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Alert from "../Components/Alert/Alert";
+import { notiAction } from "./notificationSlice";
 
 const authSlice = createSlice({
     name : "auth",
@@ -26,11 +28,33 @@ const authSlice = createSlice({
             localStorage.removeItem("userData");
         }
     }
-})
-export const signup = () => {
-    return async (data) => {
-        let response = await fetch("http://localhost:5000/signup");
+});
+export const authActions = authSlice.actions;
+export const signup = (data) => {
+    return async (dispatch) => {
+        dispatch(notiAction.enableNotification({
+            message : "Registering User !",
+            heading : "Pending"
+        }))
+        let response = await fetch("http://localhost:5000/register",{
+            method : "POST",
+            body : JSON.stringify(data),
+            headers : {
+                "Content-Type": "application/json"
+            }
+        });
+        if(!response.ok){
+            dispatch(notiAction.enableNotification({
+                message : "User notification registeration failed !",
+                heading : "Failed"
+            }))
+        }
+        else{
+            dispatch(notiAction.enableNotification({
+                message : "User registered successfully !",
+                heading : "Success"
+            }));
+        }
     }
 }
-export const authActions = authSlice.actions;
 export default authSlice;
