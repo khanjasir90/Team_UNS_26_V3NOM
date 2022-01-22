@@ -1,5 +1,6 @@
 const Razorpay = require("razorpay");
 require("dotenv").config();
+let Farmer = require('../model/Farmer');
 exports.createPaymentLink = async (req, res, next) => {
     try {
         let {
@@ -33,7 +34,7 @@ exports.createPaymentLink = async (req, res, next) => {
             notes: {
                 ...notesObj
             },
-            callback_url: success_url,
+            callback_url: "http://localhost:5000/success-transaction",
             callback_method: "get"
         })
         return res.status(200).json({
@@ -49,4 +50,19 @@ exports.createPaymentLink = async (req, res, next) => {
         )
     }
 
+}
+exports.successTransaction = async (req,res,next) => {
+    try {
+        let { paymentLinkId } = req.body;
+        var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET });
+        let transactionData = await instance.paymentLink.fetch(paymentLinkId);
+        let farmerData = await Farmer.findById(transactionData.farmerId);
+        farmerData.moneyEarned += transactionData.amount;
+        farmerData.totalCropSelled ++;
+        await farmerData.save();
+        res.redirect("http://localhost:3000");
+    } catch (error) {
+        console.log(error);
+        res.redirect("https://localhost:3000?status=Failed");
+    }
 }
