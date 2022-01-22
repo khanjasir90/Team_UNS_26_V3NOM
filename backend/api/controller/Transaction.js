@@ -34,7 +34,7 @@ exports.createPaymentLink = async (req, res, next) => {
             notes: {
                 ...notesObj
             },
-            callback_url: "http://localhost:5000/success-transaction",
+            callback_url: "http://localhost:8000/success-transaction",
             callback_method: "get"
         })
         return res.status(200).json({
@@ -55,10 +55,11 @@ exports.successTransaction = async (req,res,next) => {
     try {
         let { paymentLinkId } = req.body;
         var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET });
-        let transactionData = await instance.paymentLink.fetch(paymentLinkId);
+        let transaction = await instance.paymentLink.fetch(paymentLinkId);
+        let transactionData = transaction.notes;
         let farmerData = await Farmer.findById(transactionData.farmerId);
         farmerData.moneyEarned += transactionData.amount;
-        farmerData.totalCropSelled ++;
+        farmerData.totalCropSelled += transactionData.qty;
         await farmerData.save();
         res.redirect("http://localhost:3000");
     } catch (error) {
