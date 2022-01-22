@@ -4,8 +4,10 @@ import "./SignIn.css";
 import { useDispatch } from "react-redux";
 import { signin } from "../../store/authSlice";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const signincontext = useContext(SignInContext);
   const { hideSignIn } = signincontext;
   const dispatch = useDispatch();
@@ -16,7 +18,7 @@ const SignIn = () => {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    dispatch(signin(data));
+    dispatch(signin(data,navigate));
   };
 
   const InputChange = (event) => {

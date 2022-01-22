@@ -58,7 +58,7 @@ export const signup = (data) => {
     }
 }
 
-export const signin = (data) => {
+export const signin = (data,navigate) => {
     return async (dispatch) => {
         dispatch(notiAction.enableNotification({
             message: "Loggin In",

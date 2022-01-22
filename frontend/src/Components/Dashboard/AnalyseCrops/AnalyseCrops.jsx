@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AnalyseCrops.css";
-
+import { useDispatch } from "react-redux";
+import { predictDisease } from "../../../store/analyzeSoil";
+import { useSelector } from "react-redux";
 const AnalyseCrops = () => {
+  const diseaseData = useSelector(state => state.soil);
   const [image, setImage] = useState();
   const [preview, setPreview] = useState();
   const fileInputRef = useRef();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (image) {
       const reader = new FileReader();
@@ -17,7 +20,11 @@ const AnalyseCrops = () => {
       setPreview(null);
     }
   }, [image]);
-
+  const predictDiseaseHandler = () => {
+    const formdata = new FormData();
+    formdata.append("image",image);
+    dispatch(predictDisease(formdata));
+  }
   return (
     <div className="analyse__crops__main">
       <div className="header__dash flex__center flex__space__between">
@@ -58,28 +65,28 @@ const AnalyseCrops = () => {
             <h3>No image uploaded</h3>
           )}
           <br />
-          <button className="button__primary">Analyse</button>
+          <button className="button__primary" onClick={predictDiseaseHandler}>Analyse</button>
         </div>
         <div className="analysis__result flex__center flex__space__between flex__flow__down flex__left">
           <h2>Disease Name</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+            { diseaseData.diseaseName? `Disease Name : ${diseaseData.diseaseName}` : `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
             commodo odio eu erat tempus, ut volutpat ligula consectetur. Aliquam
             sollicitudin nibh eros, tempus vehicula ex placerat a. Etiam augue
             tortor, euismod non consectetur eget, feugiat in purus. Nam quis
             elit lacus. Pellentesque in aliquet felis. Vivamus tincidunt
             vestibulum neque, ut faucibus ex molestie feugiat. Duis bibendum
-            velit purus, sed vestibulum nibh ullamcorper placerat.
+            velit purus, sed vestibulum nibh ullamcorper placerat.`}
           </p>
           <h2>Result</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+          { diseaseData.solution? `Solution : ${diseaseData.solution} \n Confidence : ${diseaseData.confidenceRate}` : `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
             commodo odio eu erat tempus, ut volutpat ligula consectetur. Aliquam
             sollicitudin nibh eros, tempus vehicula ex placerat a. Etiam augue
             tortor, euismod non consectetur eget, feugiat in purus. Nam quis
             elit lacus. Pellentesque in aliquet felis. Vivamus tincidunt
             vestibulum neque, ut faucibus ex molestie feugiat. Duis bibendum
-            velit purus, sed vestibulum nibh ullamcorper placerat.
+            velit purus, sed vestibulum nibh ullamcorper placerat.`}
           </p>
         </div>
       </div>
