@@ -1,5 +1,6 @@
 const Crop = require('../model/Crop');
 const Farmer = require('../model/Farmer');
+const User = require('../model/User')
 const mongoose = require('mongoose');
 
 exports.addCrops = async(req,res,next) => {
@@ -15,7 +16,7 @@ exports.addCrops = async(req,res,next) => {
             perKgPrice: perKgPrice
         })
         const user = await newCrop.save();
-        res.status(200).send({ status: 200, message: "Saved" });
+        res.status(200).send({ status: 200, data:{ newCrop: newCrop} , message: "Saved" });
         return;
     }
     catch(error) {
@@ -79,3 +80,26 @@ exports.updateCrop = async(req,res,next) => {
         next(error)
     }
 }
+
+exports.cropByEmail = async(req,res,next) => {
+    try {
+        console.log(req.body.email);
+        // Crop.find( { email: req.body.email })
+        // .then(results => {
+        //     res.status(200).json({
+        //         status: 200,            
+        //         data : {
+        //             results: results
+        //         }
+        //     })
+        // })
+        // .catch(error =>{
+        //     next(error)
+        // })
+       
+        return;
+    }catch(error) {
+        next(error)
+    }
+}
+
