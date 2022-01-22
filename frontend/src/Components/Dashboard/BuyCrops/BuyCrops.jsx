@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CropCardBuy from "./CropCardBuy/CropCardBuy";
-
+import { GetAllCrops } from "../../../store/cropSlice";
+import { useDispatch, useSelector } from "react-redux";
 const crops = [
   {
     id: 1,
@@ -37,6 +38,20 @@ const crops = [
 ];
 
 const BuyCrops = () => {
+  const [crops, setCrops] = useState([]);
+  const dispatch = useDispatch();
+
+  const crops_data = useSelector((store) => store.crops);
+
+  const getCrops = () => {
+    dispatch(GetAllCrops());
+    setCrops(crops_data.all_crops);
+  };
+
+  useEffect(() => {
+    getCrops();
+    // eslint-disable-next-line
+  }, []);
   return (
     <div className="sell__crops__main">
       <div className="header__dash flex__center flex__space__between">

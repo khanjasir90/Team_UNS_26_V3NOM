@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateCrop } from "../../../../store/cropSlice";
 
 const CropCard = ({ crop }) => {
   const [editPop, setEditPop] = useState(false);
@@ -9,7 +11,6 @@ const CropCard = ({ crop }) => {
         <h2 className="crop__quantity">{crop.quantity} Kg</h2>
         <p>At Rs. {crop.rateperkg} per Kg</p>
       </div>
-      <button className="button__primary">Buy Now</button>
       <svg
         className="editButton"
         width="25"
@@ -37,6 +38,17 @@ const EditCropPopup = ({ data, setEditPop }) => {
   const [cropname, setCropname] = useState(data.name);
   const [quant, setQuant] = useState(data.quantity);
   const [perkg, setPerkg] = useState(data.rateperkg);
+
+  const dispatch = useDispatch();
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const edited = {
+      quantity: quant,
+      perKgPrice: perkg,
+    };
+    dispatch(updateCrop(data.id, edited));
+  };
 
   return (
     <div className="edit__crop__main flex__center">
@@ -70,7 +82,13 @@ const EditCropPopup = ({ data, setEditPop }) => {
               onChange={(e) => setPerkg(e.target.value)}
             ></input>
           </div>
-          <button className="button__primary">Save</button>
+          <button
+            className="button__primary"
+            type="submit"
+            onClick={(e) => handleUpdate(e)}
+          >
+            Save
+          </button>
         </form>
         <svg
           xmlns="http://www.w3.org/2000/svg"

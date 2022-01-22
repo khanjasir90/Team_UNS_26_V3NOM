@@ -1,36 +1,27 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import CropCard from "./CropCard/CropCard";
 import "./SellCrops.css";
-
-const crops = [
-  {
-    id: 1,
-    name: "Wheat Fine",
-    quantity: 200,
-    rateperkg: 12,
-  },
-  {
-    id: 2,
-    name: "Wheat",
-    quantity: 700,
-    rateperkg: 13,
-  },
-  {
-    id: 3,
-    name: "Rice Basmati",
-    quantity: 900,
-    rateperkg: 30,
-  },
-  {
-    id: 4,
-    name: "Rice",
-    quantity: 200,
-    rateperkg: 20,
-  },
-];
+import { AddCrop, CropData } from "../../../store/cropSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const SellCrops = () => {
   const [addPop, setAddPop] = useState(false);
+  const [crops, setCrops] = useState([]);
+  const dispatch = useDispatch();
+
+  const crops_data = useSelector((store) => store.crops);
+
+  const getCrops = () => {
+    dispatch(CropData());
+    setCrops(crops_data.farmer_crops);
+  };
+
+  useEffect(() => {
+    getCrops();
+    // eslint-disable-next-line
+  }, [crops_data]);
+
   return (
     <div className="sell__crops__main">
       <div className="header__dash flex__center flex__space__between">
@@ -47,15 +38,31 @@ const SellCrops = () => {
           })}
         </div>
       </div>
-      {addPop && <AddCrop setAddPop={setAddPop} />}
+      {addPop && <AddCropModal setAddPop={setAddPop} />}
     </div>
   );
 };
 
-const AddCrop = ({ setAddPop }) => {
+const AddCropModal = ({ setAddPop }) => {
   const [cropname, setCropname] = useState("");
   const [quantity, setQuantity] = useState("");
   const [perkg, setPerkg] = useState("");
+  const dispatch = useDispatch();
+
+  const handleAddCrop = (e) => {
+    e.preventDefault();
+    const data = {
+      email: localStorage.getItem("userData"),
+      cropName: cropname,
+      quantity: quantity,
+      perKgPrice: perkg,
+    };
+    dispatch(AddCrop(data));
+    setCropname("");
+    setQuantity("");
+    setPerkg("");
+  };
+
   return (
     <div className="add__crop__main flex__center">
       <div className="add__crop__cont">
@@ -88,7 +95,13 @@ const AddCrop = ({ setAddPop }) => {
               onChange={(e) => setPerkg(e.target.value)}
             ></input>
           </div>
-          <button className="button__primary">Add Crop</button>
+          <button
+            className="button__primary"
+            onClick={(e) => handleAddCrop(e)}
+            type="submit"
+          >
+            Add Crop
+          </button>
         </form>
         <svg
           xmlns="http://www.w3.org/2000/svg"
