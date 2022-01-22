@@ -1,4 +1,5 @@
-const User = require('../model/User')
+const User = require('../model/User');
+const Farmer = require('../model/Farmer');
 const mongoose = require('mongoose');
 const { resetWatchers } = require('nodemon/lib/monitor/watch');
 
@@ -6,23 +7,31 @@ exports.registerUser = async(req,res,next) => {
     try {
         const { name,email,contact,isFarmer,password } = req.body
         
-        var userType;
-        if(isFarmer == "1") userType=true
-        else userType=false
-
         const userExist = await User.findOne({email:email});
 
         if (userExist) {
-        res.status(200).send({ status: 400, message: "User already exist!!!" });
-        return;
-         }
+            res.status(200).send({ status: 400, message: "User already exist!!!" });
+            return;
+        }
+
+        var userType;
+        if(isFarmer == "1"){
+            userType = true;
+            const newFarmer = new Farmer ({
+                email: email,
+                totalCropSelled: 0,
+                moneyEarned: 0
+            })
+            const farmer = await newFarmer.save();
+        }
+        else userType=false
 
         const createNewUser = new User({
             name:name,
             email:email,
             contact:contact,
             isFarmer: userType,
-            password:password 
+            password:password,
         })
         const user = await createNewUser.save();
         res.status(200).send({ status: 200, message: "User Registered Successfully" });

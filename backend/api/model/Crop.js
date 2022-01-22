@@ -3,7 +3,7 @@ var conn = mongoose.Collection;
 var CropSchema = new mongoose.Schema({
     
     email: {
-        type: mongoose.Schema.Types.String, ref: 'Farmer'
+        type: String
     },
     cropName: {
         type: String,
