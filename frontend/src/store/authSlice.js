@@ -27,5 +27,10 @@ const authSlice = createSlice({
         }
     }
 })
+export const signup = () => {
+    return async (data) => {
+        let response = await fetch("http://localhost:5000/signup");
+    }
+}
 export const authActions = authSlice.actions;
 export default authSlice;
