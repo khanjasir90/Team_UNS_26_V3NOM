@@ -1,10 +1,33 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import SignUpContext from "../../contexts/SignUpContext/SignUpContext";
 import "./SignUp.css";
+import { useDispatch } from "react-redux";
+import { signup } from "../../store/authSlice";
 
 const SignUp = () => {
   const signupcontext = useContext(SignUpContext);
   const { hideSignUp } = signupcontext;
+  const dispatch = useDispatch();
+  const [Farmer, setFarmer] = useState("Farmer");
+  const [warning, setWarning] = useState(false);
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    contact: "",
+    isFarmer: Farmer,
+    password: "",
+  });
+
+  const InputChange = (event) => {
+    setData({ ...data, [event.target.name]: event.target.value });
+  };
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    dispatch(signup(data));
+    console.log(data);
+  };
+
   return (
     <div className="signup__main flex__center">
       <div className="signup__cont flex__center">
@@ -14,29 +37,79 @@ const SignUp = () => {
             <div className="signup__input__box flex__center flex__flow__down flex__left">
               <div className="input__box flex__center flex__flow__down flex__left">
                 <label className="input__field__label">Name</label>
-                <input className="input__field"></input>
+                <input
+                  className="input__field"
+                  name="name"
+                  value={data.name}
+                  onChange={InputChange}
+                ></input>
               </div>
               <div className="input__box flex__center flex__flow__down flex__left">
                 <label className="input__field__label">Email</label>
-                <input className="input__field"></input>
+                <input
+                  className="input__field"
+                  type={"email"}
+                  name="email"
+                  value={data.email}
+                  onChange={InputChange}
+                ></input>
+              </div>
+              <div className="input__box flex__center flex__flow__down flex__left">
+                <label className="input__field__label">Contact</label>
+                <input
+                  className="input__field"
+                  type={"number"}
+                  name="contact"
+                  value={data.contact}
+                  onChange={InputChange}
+                ></input>
               </div>
               <p className="input__field__label">
                 Please select on of the options
               </p>
-              <select className="select__form">
+              <select
+                className="select__form"
+                onChange={(e) => {
+                  setFarmer(e.target.value);
+                  data.isFarmer = e.target.value;
+                }}
+              >
                 <option value="Farmer">Farmer</option>
                 <option value="Wholeseller">Wholeseller</option>
               </select>
               <div className="input__box flex__center flex__flow__down flex__left">
                 <label className="input__field__label">Password</label>
-                <input className="input__field"></input>
+                <input
+                  className="input__field"
+                  type={"password"}
+                  name="password"
+                  value={data.password}
+                  onChange={InputChange}
+                ></input>
               </div>
               <div className="input__box flex__center flex__flow__down flex__left">
                 <label className="input__field__label">Confirm Password</label>
-                <input className="input__field"></input>
+                <input
+                  className="input__field"
+                  type={"password"}
+                  onChange={(e) => {
+                    if (e.target.value !== data.password) {
+                      setWarning(true);
+                    } else {
+                      setWarning(false);
+                    }
+                  }}
+                ></input>
+                {warning && (
+                  <p className="warning__small">Passwords don't match</p>
+                )}
               </div>
             </div>
-            <button type="submit" className="button__primary">
+            <button
+              type="submit"
+              className="button__primary"
+              onClick={(e) => handleSignUp(e)}
+            >
               Sign Up
             </button>
           </form>

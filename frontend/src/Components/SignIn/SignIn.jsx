@@ -2,24 +2,25 @@ import React, { useContext } from "react";
 import SignInContext from "../../contexts/SignInContext/SignInContext";
 import "./SignIn.css";
 import { useDispatch } from "react-redux";
-import { notiAction } from "../../store/notificationSlice";
+import { signin } from "../../store/authSlice";
+import { useState } from "react";
 
 const SignIn = () => {
   const signincontext = useContext(SignInContext);
   const { hideSignIn } = signincontext;
   const dispatch = useDispatch();
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    dispatch(
-      notiAction.enableNotification({
-        heading: "Success",
-        message: "HEllo WoRld",
-      })
-    );
-    setTimeout(() => {
-      dispatch(notiAction.disableNotification());
-    }, 2000);
+    dispatch(signin(data));
+  };
+
+  const InputChange = (event) => {
+    setData({ ...data, [event.target.name]: event.target.value });
   };
 
   return (
@@ -30,11 +31,23 @@ const SignIn = () => {
           <div className="signup__input__box flex__center flex__flow__down flex__left">
             <div className="input__box flex__center flex__flow__down flex__left">
               <label className="input__field__label">Email</label>
-              <input className="input__field"></input>
+              <input
+                className="input__field"
+                name="email"
+                type={"email"}
+                onChange={InputChange}
+                value={data.email}
+              ></input>
             </div>
             <div className="input__box flex__center flex__flow__down flex__left">
               <label className="input__field__label">Password</label>
-              <input className="input__field"></input>
+              <input
+                className="input__field"
+                onChange={InputChange}
+                name="password"
+                type={"password"}
+                value={data.password}
+              ></input>
             </div>
           </div>
           <button

@@ -45,3 +45,7 @@
   border: 2px solid #01aa86;
   color: #01aa86;
 }
+.warning__small {
+  font-size: 12px;
+  color: red;
+}

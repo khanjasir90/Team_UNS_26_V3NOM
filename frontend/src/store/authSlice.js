@@ -1,60 +1,97 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Alert from "../Components/Alert/Alert";
 import { notiAction } from "./notificationSlice";
 
 const authSlice = createSlice({
-    name : "auth",
-    initialState : {
-        loggedIn : false,
-        userData : {},
-        token : ""
+    name: "auth",
+    initialState: {
+        loggedIn: false,
+        userData: {},
     },
-    reducers : {
-        login(state,action) {
+    reducers: {
+        login(state, action) {
             state.loggedIn = true;
-            state.token = action.payload.token;
             state.userData = action.payload.userData;
             // store token in localstorage
-            localStorage.setItem(
-                "token",action.payload.token
-            );
-            localStorage.setItem("userData" , JSON.stringify(action.payload.userData));
+            localStorage.setItem("userData", (action.payload.userData));
         },
-        logout(state,action){
+        logout(state, action) {
             state.loggedIn = false;
-            state.token = "";
             // remove from localstorage
-            localStorage.removeItem("token");
             localStorage.removeItem("userData");
         }
     }
 });
 export const authActions = authSlice.actions;
+
 export const signup = (data) => {
     return async (dispatch) => {
         dispatch(notiAction.enableNotification({
-            message : "Registering User !",
-            heading : "Pending"
+            message: "Registering User !",
+            heading: "Pending"
         }))
-        let response = await fetch("http://localhost:5000/register",{
-            method : "POST",
-            body : JSON.stringify(data),
-            headers : {
+        let response = await fetch("http://localhost:8000/api/user/register", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
                 "Content-Type": "application/json"
             }
         });
-        if(!response.ok){
+        console.log(response);
+        if (!response.ok) {
             dispatch(notiAction.enableNotification({
-                message : "User notification registeration failed !",
-                heading : "Failed"
+                message: "User notification registeration failed !",
+                heading: "Failed"
             }))
+            setTimeout(() => {
+                dispatch(notiAction.disableNotification());
+            }, 2000);
         }
-        else{
+        else {
             dispatch(notiAction.enableNotification({
-                message : "User registered successfully !",
-                heading : "Success"
+                message: "User registered successfully !",
+                heading: "Success"
             }));
+            setTimeout(() => {
+                dispatch(notiAction.disableNotification());
+            }, 2000);
         }
     }
 }
+
+export const signin = (data) => {
+    return async (dispatch) => {
+        dispatch(notiAction.enableNotification({
+            message: "Loggin In",
+            heading: "Success"
+        }))
+        let response = await fetch("http://localhost:8000/api/user/login", {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        let json = await response.json();
+        console.log(json);
+        if (!response.ok) {
+            dispatch(notiAction.enableNotification({
+                message: "User Login failed !",
+                heading: "Failed"
+            }))
+            setTimeout(() => {
+                dispatch(notiAction.disableNotification());
+            }, 2000);
+        } else {
+            dispatch(notiAction.enableNotification({
+                message: "User login Successful !",
+                heading: "Success"
+            }))
+            dispatch(authActions.login({ userData: json.data.user.email }))
+            setTimeout(() => {
+                dispatch(notiAction.disableNotification());
+            }, 2000);
+        }
+    }
+}
+
 export default authSlice;
