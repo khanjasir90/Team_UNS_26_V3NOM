@@ -1,0 +1,47 @@
+.stats__main {
+  width: 100%;
+  max-height: 100vh;
+  overflow: scroll;
+}
+.weather__graphs,
+.header__dash,
+.sales__section,
+.payments__section {
+  width: 95%;
+  padding: 2.5%;
+}
+.graph__container,
+.sales__chart,
+.sales__data {
+  width: 45%;
+  padding: 2.5%;
+}
+.sales__data__container {
+  margin: 5%;
+  padding: 5%;
+  background: #f2f2f2;
+  width: 40%;
+}
+@media screen and (max-width: 768px) {
+  .weather__graphs {
+    flex-direction: column;
+  }
+  .graph__container {
+    width: 90%;
+  }
+  .sales__analytics {
+    flex-direction: column;
+  }
+  .sales__data,
+  .sales__chart {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 425px) {
+  .sales__data {
+    flex-direction: column;
+  }
+  .sales__data__container {
+    width: 90%;
+  }
+}

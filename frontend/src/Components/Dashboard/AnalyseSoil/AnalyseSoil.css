@@ -1,0 +1,21 @@
+.analyse__soil__main {
+  width: 100%;
+  max-height: 100vh;
+  overflow: scroll;
+}
+.analyse__section {
+  width: 95%;
+  padding: 2.5%;
+}
+.input__fields,
+.analysis__result {
+  width: 45%;
+  padding: 2.5%;
+}
+@media screen and (max-width: 832px) {
+  .input__fields,
+  .analysis__result {
+    width: 95%;
+    padding: 2.5%;
+  }
+}

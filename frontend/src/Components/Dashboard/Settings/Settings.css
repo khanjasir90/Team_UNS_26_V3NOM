@@ -1,0 +1,20 @@
+.settings__section {
+  width: 45%;
+  padding: 2.5%;
+}
+.settings__section h2 {
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 768px) {
+  .settings__section {
+    width: 75%;
+  }
+  .settings__section h2 {
+    display: flex;
+  }
+}
+@media screen and (max-width: 425px) {
+  .settings__section {
+    width: 95%;
+  }
+}

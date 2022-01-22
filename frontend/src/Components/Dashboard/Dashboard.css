@@ -1,0 +1,10 @@
+.dash__container__main {
+  width: 80%;
+  min-height: 100vh;
+  background: #fff;
+}
+@media screen and (max-width: 700px) {
+  .dash__container__main {
+    width: 90%;
+  }
+}

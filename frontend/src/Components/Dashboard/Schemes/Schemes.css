@@ -1,0 +1,40 @@
+.schemes__main {
+  width: 100%;
+  max-height: 100vh;
+  overflow: scroll;
+}
+.schemes__section {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 0fr);
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.scheme__card {
+  width: 90%;
+  max-width: 250px;
+  min-width: 250px;
+  padding: 5%;
+  height: 350px;
+  background: #f2f2f2;
+  position: relative;
+  margin: 20px;
+}
+.scheme__card p {
+  margin-top: 5%;
+}
+@media screen and (max-width: 1110px) {
+  .schemes__section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  .schemes__section {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .schemes__section h2 {
+    display: flex;
+  }
+}
