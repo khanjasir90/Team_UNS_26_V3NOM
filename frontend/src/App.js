@@ -16,13 +16,13 @@ function App() {
     return (
         <>
             <Alert />
-            {
-                showsignIn && <SignIn />
-            }
-            {
-                showsignUp && <SignUp />
-            }
             <Router>
+                {
+                    showsignIn && <SignIn />
+                }
+                {
+                    showsignUp && <SignUp />
+                }
                 <Routes>
                     <Route exact path='/' element={<LandingPage />} />
                 </Routes>

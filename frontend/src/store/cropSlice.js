@@ -25,6 +25,9 @@ const cropSlice = createSlice({
             const array = state.farmer_crops;
             let objIndex = array.findIndex((obj => obj.id === obj_id));
             array[objIndex] = action.payload.data;
+        },
+        farmerCrops(state, action) {
+            state.farmer_crops = action.payload.data;
         }
     }
 })
@@ -55,7 +58,7 @@ export const AddCrop = (data) => {
             }, 2000);
         }
         else {
-            dispatch(cropActions.addcrop({ data: json }));
+            dispatch(cropActions.addcrop({ data: json.data.newCrop }));
             dispatch(notiAction.enableNotification({
                 message: "Crop Added successfully !",
                 heading: "Success"
@@ -84,13 +87,6 @@ export const GetAllCrops = () => {
             }, 2000);
         }
         else {
-            dispatch(notiAction.enableNotification({
-                message: "Crops Fetched !",
-                heading: "Success"
-            }));
-            setTimeout(() => {
-                dispatch(notiAction.disableNotification());
-            }, 2000);
             dispatch(cropActions.allcrops({ data: json.data.crop }))
         }
     }
@@ -134,6 +130,7 @@ export const updateCrop = (id, data) => {
             body: JSON.stringify(data)
         })
         const json = await response.json();
+        console.log(json);
         if (!response.ok) {
             dispatch(notiAction.enableNotification({
                 message: "Something went wrong. Try again !",
@@ -148,9 +145,40 @@ export const updateCrop = (id, data) => {
                 message: "Crop Updated successfully !",
                 heading: "Success"
             }));
+            setTimeout(() => {
+                dispatch(notiAction.disableNotification());
+            }, 2000);
+            FarmerCrops();
             dispatch(cropActions.updateCrop({ data: json.data.updatedCrop, id: id }));
         }
     }
+}
+
+export const FarmerCrops = () => {
+    return async (dispatch) => {
+        let response = await fetch(`http://localhost:8000/api/crop/farmercrops`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: localStorage.getItem('userData')
+            })
+        })
+        const json = await response.json();
+        if (!response.ok) {
+            dispatch(notiAction.enableNotification({
+                message: "Something went wrong. Try again !",
+                heading: "Failed"
+            }))
+            setTimeout(() => {
+                dispatch(notiAction.disableNotification());
+            }, 2000);
+        } else {
+            dispatch(cropActions.farmerCrops({ data: json.data.crops }));
+        }
+    }
+
 }
 
 export default cropSlice;

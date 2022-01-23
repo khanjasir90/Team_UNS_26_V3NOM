@@ -6,10 +6,10 @@ const CropCard = ({ crop }) => {
   const [editPop, setEditPop] = useState(false);
   return (
     <div className="crop__sell__card flex__center flex__flow__down flex__space__between flex__left">
-      <h1>{crop.name}</h1>
+      <h1>{crop.cropName}</h1>
       <div>
         <h2 className="crop__quantity">{crop.quantity} Kg</h2>
-        <p>At Rs. {crop.rateperkg} per Kg</p>
+        <p>At Rs. {crop.perKgPrice} per Kg</p>
       </div>
       <svg
         className="editButton"
@@ -35,9 +35,9 @@ const CropCard = ({ crop }) => {
 };
 
 const EditCropPopup = ({ data, setEditPop }) => {
-  const [cropname, setCropname] = useState(data.name);
+  const [cropname, setCropname] = useState(data.cropName);
   const [quant, setQuant] = useState(data.quantity);
-  const [perkg, setPerkg] = useState(data.rateperkg);
+  const [perkg, setPerkg] = useState(data.perKgPrice);
 
   const dispatch = useDispatch();
 
@@ -47,7 +47,7 @@ const EditCropPopup = ({ data, setEditPop }) => {
       quantity: quant,
       perKgPrice: perkg,
     };
-    dispatch(updateCrop(data.id, edited));
+    dispatch(updateCrop(data._id, edited));
   };
 
   return (

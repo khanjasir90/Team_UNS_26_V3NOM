@@ -12,7 +12,9 @@ const CropCardBuy = ({ crop }) => {
         <p>Farmer Details</p>
         <p>{crop.email}</p>
       </div>
-      <button className="button__primary">Buy Now</button>
+      <button className="button__primary" onClick={() => console.log("Click")}>
+        Buy Now
+      </button>
     </div>
   );
 };

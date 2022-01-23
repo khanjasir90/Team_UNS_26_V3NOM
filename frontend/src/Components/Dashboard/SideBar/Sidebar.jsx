@@ -1,18 +1,24 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 // importing svgs
 import SellCrop from "../../../assets/svgs/box.svg";
 import CropIcon from "../../../assets/svgs/sprout.svg";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
-  const [select, setSelect] = useState(0);
-
+  const [select, setSelect] = useState(1);
+  const user_data = useSelector((store) => store.auth);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("userData");
+    navigate("/");
+  };
   return (
     <div className="sidebar__main">
       <div className="sidebar__header">
         <h1>Hi 👋</h1>
-        <h2>Username</h2>
+        <h2>{user_data.name}</h2>
         <svg
           width="40"
           height="40"
@@ -48,106 +54,115 @@ const Sidebar = () => {
             <h3>Stats</h3>
           </button>
         </Link>
-        <Link
-          to="sellcrops"
-          className="sidebar__link"
-          style={{ textDecoration: "none" }}
-        >
-          <button
-            className={
-              select === 2
-                ? "sidebar__button flex__center sidebar__selected"
-                : "sidebar__button flex__center"
-            }
-            onClick={() => setSelect(2)}
+        {user_data.isFarmer && (
+          <>
+            <Link
+              to="sellcrops"
+              className="sidebar__link"
+              style={{ textDecoration: "none" }}
+            >
+              <button
+                className={
+                  select === 2
+                    ? "sidebar__button flex__center sidebar__selected"
+                    : "sidebar__button flex__center"
+                }
+                onClick={() => setSelect(2)}
+              >
+                <img
+                  src={SellCrop}
+                  alt="sell crop"
+                  width={"25px"}
+                  style={{ filter: "invert(1)" }}
+                ></img>
+                <h3>Sell Crops</h3>
+              </button>
+            </Link>
+            <Link
+              to="analysecrop"
+              className="sidebar__link"
+              style={{ textDecoration: "none" }}
+            >
+              <button
+                className={
+                  select === 3
+                    ? "sidebar__button flex__center sidebar__selected"
+                    : "sidebar__button flex__center"
+                }
+                onClick={() => setSelect(3)}
+              >
+                <img
+                  src={CropIcon}
+                  alt="analyse crop"
+                  width={"25px"}
+                  style={{ filter: "invert(1)" }}
+                ></img>
+                <h3>Analyse Crops</h3>
+              </button>
+            </Link>
+            <Link
+              to="analysesoil"
+              className="sidebar__link"
+              style={{ textDecoration: "none" }}
+            >
+              <button
+                className={
+                  select === 4
+                    ? "sidebar__button flex__center sidebar__selected"
+                    : "sidebar__button flex__center"
+                }
+                onClick={() => setSelect(4)}
+              >
+                <img
+                  src={CropIcon}
+                  alt="analyse soil"
+                  width={"25px"}
+                  style={{ filter: "invert(1)" }}
+                ></img>
+                <h3>Analyse Soil</h3>
+              </button>
+            </Link>
+            <Link
+              to="schemes"
+              className="sidebar__link"
+              style={{ textDecoration: "none" }}
+            >
+              <button
+                className={
+                  select === 5
+                    ? "sidebar__button flex__center sidebar__selected"
+                    : "sidebar__button flex__center"
+                }
+                onClick={() => setSelect(5)}
+              >
+                <i
+                  className="bi bi-card-heading"
+                  style={{ fontSize: "25px" }}
+                ></i>
+                <h3>Govt. Schemes</h3>
+              </button>
+            </Link>
+          </>
+        )}
+        {!user_data.isFarmer && (
+          <Link
+            to="buycrops"
+            className="sidebar__link"
+            style={{ textDecoration: "none" }}
           >
-            <img
-              src={SellCrop}
-              alt="sell crop"
-              width={"25px"}
-              style={{ filter: "invert(1)" }}
-            ></img>
-            <h3>Sell Crops</h3>
-          </button>
-        </Link>
-        <Link
-          to="analysecrop"
-          className="sidebar__link"
-          style={{ textDecoration: "none" }}
-        >
-          <button
-            className={
-              select === 3
-                ? "sidebar__button flex__center sidebar__selected"
-                : "sidebar__button flex__center"
-            }
-            onClick={() => setSelect(3)}
-          >
-            <img
-              src={CropIcon}
-              alt="analyse crop"
-              width={"25px"}
-              style={{ filter: "invert(1)" }}
-            ></img>
-            <h3>Analyse Crops</h3>
-          </button>
-        </Link>
-        <Link
-          to="analysesoil"
-          className="sidebar__link"
-          style={{ textDecoration: "none" }}
-        >
-          <button
-            className={
-              select === 4
-                ? "sidebar__button flex__center sidebar__selected"
-                : "sidebar__button flex__center"
-            }
-            onClick={() => setSelect(4)}
-          >
-            <img
-              src={CropIcon}
-              alt="analyse soil"
-              width={"25px"}
-              style={{ filter: "invert(1)" }}
-            ></img>
-            <h3>Analyse Soil</h3>
-          </button>
-        </Link>
-        <Link
-          to="schemes"
-          className="sidebar__link"
-          style={{ textDecoration: "none" }}
-        >
-          <button
-            className={
-              select === 5
-                ? "sidebar__button flex__center sidebar__selected"
-                : "sidebar__button flex__center"
-            }
-            onClick={() => setSelect(5)}
-          >
-            <i className="bi bi-card-heading" style={{ fontSize: "25px" }}></i>
-            <h3>Govt. Schemes</h3>
-          </button>
-        </Link>
-        <Link
-          to="buycrops"
-          className="sidebar__link"
-          style={{ textDecoration: "none" }}
-        >
-          <button
-            className={
-              select === 6
-                ? "sidebar__button flex__center sidebar__selected"
-                : "sidebar__button flex__center"
-            }
-            onClick={() => setSelect(6)}
-          >
-            <i className="bi bi-bag-fill" style={{ fontSize: "25px" }}></i>
-            <h3>Buy Crops</h3>
-          </button>
-        </Link>
+            <button
+              className={
+                select === 6
+                  ? "sidebar__button flex__center sidebar__selected"
+                  : "sidebar__button flex__center"
+              }
+              onClick={() => setSelect(6)}
+            >
+              <i className="bi bi-bag-fill" style={{ fontSize: "25px" }}></i>
+              <h3>Buy Crops</h3>
+            </button>
+          </Link>
+        )}
         <Link
           to="settings"
           className="sidebar__link"
@@ -165,7 +180,10 @@ const Sidebar = () => {
             <h3>Settings</h3>
           </button>
         </Link>
-        <button className="sidebar__button flex__center">
+        <button
+          className="sidebar__button flex__center"
+          onClick={() => handleLogout()}
+        >
           <i className="bi bi-box-arrow-left" style={{ fontSize: "25px" }}></i>
           <h3>Log Out</h3>
         </button>

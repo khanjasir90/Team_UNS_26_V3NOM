@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import CropCard from "./CropCard/CropCard";
 import "./SellCrops.css";
-import { AddCrop, CropData } from "../../../store/cropSlice";
+import { AddCrop, FarmerCrops } from "../../../store/cropSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const SellCrops = () => {
@@ -12,13 +12,9 @@ const SellCrops = () => {
 
   const crops_data = useSelector((store) => store.crops);
 
-  const getCrops = () => {
-    dispatch(CropData());
-    setCrops(crops_data.farmer_crops);
-  };
-
   useEffect(() => {
-    getCrops();
+    dispatch(FarmerCrops());
+    setCrops(crops_data.farmer_crops);
     // eslint-disable-next-line
   }, [crops_data]);
 

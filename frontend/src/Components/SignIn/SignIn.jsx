@@ -18,7 +18,9 @@ const SignIn = () => {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    dispatch(signin(data,navigate));
+    dispatch(signin(data));
+    navigate("/dashboard/stats");
+    hideSignIn();
   };
 
   const InputChange = (event) => {

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import history from "../history";
 import { notiAction } from "./notificationSlice";
 
 
@@ -8,13 +7,17 @@ const authSlice = createSlice({
     initialState: {
         loggedIn: false,
         userData: {},
+        isFarmer: false,
+        name: ''
     },
     reducers: {
         login(state, action) {
             state.loggedIn = true;
             state.userData = action.payload.userData;
             // store token in localstorage
-            localStorage.setItem("userData", (action.payload.userData));
+            localStorage.setItem("userData", (action.payload.userData.email));
+            state.isFarmer = action.payload.userData.isFarmer;
+            state.name = action.payload.userData.name;
         },
         logout(state, action) {
             state.loggedIn = false;
@@ -60,7 +63,7 @@ export const signup = (data) => {
     }
 }
 
-export const signin = (data,navigate) => {
+export const signin = (data) => {
     return async (dispatch) => {
         dispatch(notiAction.enableNotification({
             message: "Loggin In",
@@ -84,12 +87,11 @@ export const signin = (data,navigate) => {
                 dispatch(notiAction.disableNotification());
             }, 2000);
         } else {
-            history.push('/dashboard/stats')
             dispatch(notiAction.enableNotification({
                 message: "User login Successful !",
                 heading: "Success"
             }))
-            dispatch(authActions.login({ userData: json.data.user.email }))
+            dispatch(authActions.login({ userData: json.data.user }))
             setTimeout(() => {
                 dispatch(notiAction.disableNotification());
             }, 2000);

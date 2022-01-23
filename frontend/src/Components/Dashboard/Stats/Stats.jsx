@@ -108,6 +108,7 @@ const Stats = () => {
   const dispatch = useDispatch();
 
   const costs_data = useSelector((store) => store.farmer);
+  const user_data = useSelector((store) => store.auth);
 
   useEffect(() => {
     dispatch(GetCosts());
@@ -220,8 +221,8 @@ const Stats = () => {
         </div>
       </div>
       <div className="sales__section">
-        <h2>Sales</h2>
-        <h3>Total Crops selled :</h3>
+        <h2>{user_data.isFarmer ? "Sales" : "Expense"}</h2>
+        <h3>Total Crops {user_data.isFarmer ? "sold" : "bought"} :</h3>
         <div className="sales__analytics flex__center">
           <div className="sales__chart flex__center">
             <div className="graph__container">
@@ -230,12 +231,12 @@ const Stats = () => {
           </div>
           <div className="sales__data flex__center">
             <div className="sales__data__container">
-              <h3>Total Mass Sold</h3>
+              <h3>Total Mass {user_data.isFarmer ? "Sold" : "Bought"}</h3>
               <h1>Kg</h1>
               <h1>8000</h1>
             </div>
             <div className="sales__data__container">
-              <h3>Total Money Earned</h3>
+              <h3>Total Money {user_data.isFarmer ? "Earned" : "Spent"}</h3>
               <h1>₹</h1>
               <h1> 30 Lakhs</h1>
             </div>

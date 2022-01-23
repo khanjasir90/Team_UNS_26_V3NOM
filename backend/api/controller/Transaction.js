@@ -1,6 +1,19 @@
 const Razorpay = require("razorpay");
 require("dotenv").config();
 let Farmer = require('../model/Farmer');
+// {
+//     "amount" : 500,
+//         "currency" : "Rupees",
+//             "desc" : "Payment to aq6433@srmist.edu.in",
+//                 "customer_name" : "Bir Singh",
+//                     "customer_email" : "bs4352@gmail.com",
+//                         "customer_contact" : "8591509",
+//                             "notesObj" : {
+//         "farmerId" : "Mongodb id",
+//             "quantity" : "",
+//                 "amount" : ""
+//     }
+// }
 exports.createPaymentLink = async (req, res, next) => {
     try {
         let {
@@ -14,7 +27,7 @@ exports.createPaymentLink = async (req, res, next) => {
             success_url
         } = req.body;
         var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET });
-    
+
         let paymentLink = await instance.paymentLink.create({
             amount: amount,
             currency: currency,
@@ -38,20 +51,20 @@ exports.createPaymentLink = async (req, res, next) => {
             callback_method: "get"
         })
         return res.status(200).json({
-            message : "transaction link created successfully",
+            message: "transaction link created successfully",
             paymentLink
         })
     } catch (error) {
         console.log(error);
         return res.status(500).json(
             {
-                message : error.message
+                message: error.message
             }
         )
     }
 
 }
-exports.successTransaction = async (req,res,next) => {
+exports.successTransaction = async (req, res, next) => {
     try {
         let { paymentLinkId } = req.body;
         var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET });
