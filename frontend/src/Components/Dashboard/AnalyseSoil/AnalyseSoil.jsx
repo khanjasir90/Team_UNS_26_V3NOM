@@ -4,7 +4,9 @@ import { useDispatch } from "react-redux";
 import { analyseSoilHandler } from "../../../store/analyzeSoil";
 import "./AnalyseSoil.css";
 import {useSelector} from "react-redux";
+import { langActions } from "../../../store/languageSlice";
 const AnalyseSoil = () => {
+  const langData = useSelector(state => state.lang);
   const soilData = useSelector(state => state.soil);
   const dispatch = useDispatch();
   const [nitrogen,setNitrogen] = useState();
@@ -95,17 +97,18 @@ const AnalyseSoil = () => {
           <h2>Result</h2>
           <p>
             {
-              soilData.cropName ? `Crop Name : ${soilData.cropName}` : `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-              commodo odio eu erat tempus, ut volutpat ligula consectetur. Aliquam
-              sollicitudin nibh eros, tempus vehicula ex placerat a. Etiam augue
-              tortor, euismod non consectetur eget, feugiat in purus. Nam quis
-              elit lacus. Pellentesque in aliquet felis. Vivamus tincidunt
-              vestibulum neque, ut faucibus ex molestie feugiat. Duis bibendum
-              velit purus, sed vestibulum nibh ullamcorper placerat.`
+              soilData.cropName ? `Crop Name : ${soilData.cropName}` : (langData.lang === "HI"? `मृदा स्वास्थ्य कार्ड (एसएचसी) भारत के कृषि विभाग द्वारा प्रदान की जाने वाली एक योजना है जिसमें वे मिट्टी के स्वास्थ्य का आकलन करने के लिए एक उपयोगकर्ता के अनुकूल, इसे स्वयं करें उपकरण प्रदान कर रहे हैं जिसमें 12 मानकों के संबंध में उसकी मिट्टी की स्थिति शामिल होगी, अर्थात् एन, पी, के (मैक्रो-पोषक तत्व); एस (माध्यमिक- पोषक तत्व); Zn, Fe, Cu, Mn, Bo (सूक्ष्म - पोषक तत्व); और पीएच, ईसी, ओसी (भौतिक पैरामीटर)।` : `Soil Health Card (SHC) is a Scheme provided by Agriculture Department of India in which they are providing a user-friendly,do-it-yourself tool to assess soil health which will contain the status of his soil with respect to 12 parameters, namely N,P,K (Macro-nutrients); S (Secondary- nutrient); Zn, Fe, Cu, Mn, Bo (Micro - nutrients); and pH, EC, OC (Physical parameters).`)
             }
           </p>
         </div>
       </div>
+      <button className="button__primary" onClick={()=>{
+        if (langData.lang == "EN"){
+          dispatch(langActions.changeLang("HI"))
+        }else{
+          dispatch(langActions.changeLang("EN"));
+        }
+      }}>Toggle</button>
     </div>
   );
 };
