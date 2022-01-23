@@ -108,7 +108,7 @@ const AnalyseSoil = () => {
         }else{
           dispatch(langActions.changeLang("EN"));
         }
-      }}>Toggle</button>
+      }}>Translate Text</button>
     </div>
   );
 };
