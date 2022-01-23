@@ -24,7 +24,6 @@ exports.createPaymentLink = async (req, res, next) => {
             customer_email,
             customer_contact,
             notesObj,
-            success_url
         } = req.body;
         var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET });
 
@@ -34,11 +33,11 @@ exports.createPaymentLink = async (req, res, next) => {
             accept_partial: true,
             first_min_partial_amount: 100,
             description: desc,
-            customer: {
-                name: customer_name,
-                email: customer_email,
-                contact: customer_contact
-            },
+            // customer: {
+            //     name: customer_name,
+            //     email: customer_email,
+            //     contact: customer_contact
+            // },
             notify: {
                 sms: true,
                 email: true
@@ -47,7 +46,7 @@ exports.createPaymentLink = async (req, res, next) => {
             notes: {
                 ...notesObj
             },
-            callback_url: "http://localhost:8000/success-transaction",
+            callback_url: `http://localhost:8000/api/transaction/success-transaction?farmer=${customer_email}&amount=${amount}&quantity=${notesObj.quantity}`,
             callback_method: "get"
         })
         return res.status(200).json({
@@ -66,17 +65,22 @@ exports.createPaymentLink = async (req, res, next) => {
 }
 exports.successTransaction = async (req, res, next) => {
     try {
-        let { paymentLinkId } = req.body;
-        var instance = new Razorpay({ key_id: process.env.KEY_ID, key_secret: process.env.KEY_SECRET });
-        let transaction = await instance.paymentLink.fetch(paymentLinkId);
-        let transactionData = transaction.notes;
-        let farmerData = await Farmer.findById(transactionData.farmerId);
-        farmerData.moneyEarned += transactionData.amount;
-        farmerData.totalCropSelled += transactionData.qty;
+        let { farmer, amount , quantity } = req.query;
+
+        let farmerData = await Farmer.findOne({
+            email : farmer
+        });
+        if(!farmerData){
+            return res.status(404).json({
+                message : "farmer not found"
+            })
+        }
+        farmerData.moneyEarned += amount;
+        farmerData.totalCropSelled += quantity;
         await farmerData.save();
         res.redirect("http://localhost:3000");
     } catch (error) {
         console.log(error);
-        res.redirect("https://localhost:3000?status=Failed");
+        res.redirect("https://localhost:3000");
     }
 }
