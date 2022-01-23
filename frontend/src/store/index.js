@@ -9,7 +9,7 @@ const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
         noti: notificationSlice.reducer,
-        soil : soilSlice.reducer
+        soil : soilSlice.reducer,
         crops: cropSlice.reducer,
         farmer: farmerSlice.reducer
     }
