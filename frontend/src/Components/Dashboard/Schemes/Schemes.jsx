@@ -1,25 +1,26 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import "./Schemes.css";
 
-const schemes = [
-  {
-    id: "1",
-    name: "Pardarshi Kisan Seva Yojana",
-    desc: "Pardarshi Kisan Seva Yojana has been implemented for the convenience of farmers in the state. Under this, the selection of farmers will be done online to provide financial assistance. The cash grant will be sent directly to the bank account of the beneficiary farmers. farmers and laborers can get their registration done online.",
-  },
-  {
-    id: "1",
-    name: "Pardarshi Kisan Seva Yojana",
-    desc: "Pardarshi Kisan Seva Yojana has been implemented for the convenience of farmers in the state. Under this, the selection of farmers will be done online to provide financial assistance. The cash grant will be sent directly to the bank account of the beneficiary farmers. farmers and laborers can get their registration done online.",
-  },
-  {
-    id: "1",
-    name: "Pardarshi Kisan Seva Yojana",
-    desc: "Pardarshi Kisan Seva Yojana has been implemented for the convenience of farmers in the state. Under this, the selection of farmers will be done online to provide financial assistance. The cash grant will be sent directly to the bank account of the beneficiary farmers. farmers and laborers can get their registration done online.",
-  },
-];
-
 const Schemes = () => {
+  const [schemes, setSchemes] = useState([]);
+  const getSchemes = async () => {
+    const response = await fetch("http://localhost:8000/api/farmer/schemes", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await response.json();
+    if (json.status === 200) {
+      setSchemes(json.message);
+    }
+  };
+  useEffect(() => {
+    getSchemes();
+    // eslint-disable-next-line
+  }, []);
   return (
     <div className="schemes__main">
       <div className="header__dash">
@@ -30,7 +31,7 @@ const Schemes = () => {
           return (
             <div className="scheme__card display__flex flex__flow__down flex__space__between">
               <h2>{scheme.name}</h2>
-              <p>{scheme.desc}</p>
+              <p>{scheme.description}</p>
             </div>
           );
         })}

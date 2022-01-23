@@ -8,7 +8,8 @@ const authSlice = createSlice({
         loggedIn: false,
         userData: {},
         isFarmer: false,
-        name: ''
+        name: '',
+        user_id: ''
     },
     reducers: {
         login(state, action) {
@@ -18,6 +19,7 @@ const authSlice = createSlice({
             localStorage.setItem("userData", (action.payload.userData.email));
             state.isFarmer = action.payload.userData.isFarmer;
             state.name = action.payload.userData.name;
+            state.user_id = action.payload.userData._id;
         },
         logout(state, action) {
             state.loggedIn = false;

@@ -26,6 +26,7 @@ const SignUp = () => {
     e.preventDefault();
     dispatch(signup(data));
     console.log(data);
+    hideSignUp();
   };
 
   return (

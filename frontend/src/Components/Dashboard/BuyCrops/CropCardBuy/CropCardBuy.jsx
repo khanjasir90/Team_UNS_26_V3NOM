@@ -15,11 +15,11 @@ const CropCardBuy = ({ crop }) => {
         body: JSON.stringify({
           amount: crop.rateperkg * crop.quantity,
           desc: "Farmer crop sell",
-          customer_name: crop.email_farmer,
-          customer_email: crop.email_farmer,
-          customer_contact: crop.email_farmer,
+          customer_name: crop.email,
+          customer_email: crop.email,
+          customer_contact: crop.email,
           notesObj: {
-            farmer: crop.email_farmer,
+            farmer: crop.email,
             quantity: crop.quantity,
             amount: crop.rateperkg * crop.quantity,
           },
@@ -33,18 +33,18 @@ const CropCardBuy = ({ crop }) => {
           console.log(err);
         });
     }
+    // eslint-disable-next-line
   }, [btnClick]);
   return (
     <div className="crop__sell__card flex__center flex__flow__down flex__space__between flex__left">
-      <h1>{crop.name}</h1>
+      <h1>{crop.cropName}</h1>
       <div>
         <h2 className="crop__quantity">{crop.quantity} Kg</h2>
-        <p>At Rs. {crop.rateperkg} per Kg</p>
+        <p>At Rs. {crop.perKgPrice} per Kg</p>
       </div>
       <div>
         <p>Farmer Details</p>
-        <p>{crop.email_farmer}</p>
-        <p>{crop.location}</p>
+        <p>{crop.email}</p>
       </div>
       <button
         className="button__primary"
