@@ -66,7 +66,7 @@ So in order to tackle this problem we are developing a solution which will entai
 
 <h4>Dashboard Page</h4>
 <div>
-<img src="https://github.com/khanjasir90/Team_UNS_26_V3NOM/blob/master/screenshot/register.jpeg" width = 80% height= 70%><br>
+<img src="https://github.com/khanjasir90/Team_UNS_26_V3NOM/blob/master/screenshot/dashboard.jpeg" width = 80% height= 70%><br>
 </div><br>
 
 
