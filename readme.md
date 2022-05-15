@@ -56,23 +56,23 @@ So in order to tackle this problem we are developing a solution which will entai
 
 <h4>Home Page</h4>
 <div>
-<img src="https://github.com/khanjasir90/Team_UNS_26_V3NOM/blob/master/screenshot/home.JPG" width = 80% height= 70%><br>
+<img src="https://github.com/khanjasir90/Team_UNS_26_V3NOM/blob/master/screenshot/home.jpeg" width = 80% height= 70%><br>
 </div><br>
 
 <h4>Register</h4>
 <div>
-<img src="https://github.com/khanjasir90/Team_UNS_26_V3NOM/blob/master/screenshot/register.JPG" width = 80% height= 70%><br>
+<img src="https://github.com/khanjasir90/Team_UNS_26_V3NOM/blob/master/screenshot/register.jpeg" width = 80% height= 70%><br>
 </div><br>
 
 <h4>Dashboard Page</h4>
 <div>
-<img src="https://github.com/khanjasir90/Team_UNS_26_V3NOM/blob/master/screenshot/register.JPG" width = 80% height= 70%><br>
+<img src="https://github.com/khanjasir90/Team_UNS_26_V3NOM/blob/master/screenshot/register.jpeg" width = 80% height= 70%><br>
 </div><br>
 
 
 <h4>Analyse Crop Page</h4>
 <div>
-<img src="https://github.com/khanjasir90/Team_UNS_26_V3NOM/blob/master/screenshot/crop.JPG" width = 80% height= 70%><br>
+<img src="https://github.com/khanjasir90/Team_UNS_26_V3NOM/blob/master/screenshot/crop.jpeg" width = 80% height= 70%><br>
 </div><br>
 
 <h2>Authors</h2>
