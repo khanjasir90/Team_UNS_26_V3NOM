@@ -17,6 +17,7 @@ const soilSlice = createSlice({
         updateDiseaseData(state,action){
             state.diseaseName = action.payload.diseaseName;
             state.solution = action.payload.solution;
+           // state.confidenceRate = action.payload.confidence;
         }
     }
 });
@@ -72,6 +73,7 @@ export const predictDisease = (imageData) => {
             }))
         }
         else{
+
             dispatch(notiAction.enableNotification({
                 message: "Predicting disease done!",
                 heading: "Predict disease Success"
