@@ -18,38 +18,38 @@ So in order to tackle this problem we are developing a solution which will entai
 <code>https://github.com/khanjasir90/Team_UNS_26_V3NOM.git</code><br>
 
 <h2>Run the following commands to download all the dependencies</h2>
-<code>
-    cd backend <br>
-    npm i <br>
-    cd.. <br>
-    cd frontend <br>
-    npm i <br>
-    cd.. <br>
-</code>
+
+<code> cd backend </code><br>
+<code> npm i </code><br>
+<code> cd.. </code><br>
+<code> cd frontend </code><br>
+<code> npm i </code><br>
+<code> cd..</code> <br>
 
 <h2>Command to run the project</h2>
 <pre>open terminal and type (To run Frontend server)</pre>
-<code>cd frontend <br> npm start</code><br><br>
+<code>cd frontend </code> <br>
+<code>npm start</code><br><br>
 
 <h2>Command to run the project</h2>
 <pre>open terminal and type (To run Backend server)</pre>
-<code>cd backend <br> npm start</code><br><br>
+<code>cd backend </code><br> 
+<code>npm start</code><br><br>
 
 <h2>Command to run the project</h2>
 <pre>open terminal and type (To run Backend server Flask Server)</pre>
 <code> cd flask-server </code>
 <p>Create the virtual environment using the following command</p>
-<code>
-    python -m venv "path to virtual environment" <br>
-    cd "path to virtual environment" <br>
-    cd Scripts <br>
-    activate <br>
-    cd.. <br>
-    cd.. <br>
-    set FLASK_APP=main.py <br>
-    set FLASK_ENV=dev <br>
-    set FLASK_DEBUG=1 <br>
-</code>
+<code> python -m venv "path to virtual environment" </code> <br>
+<code> cd "path to virtual environment" </code><br>
+<code> cd Scripts</code> <br>
+<code> activate</code> <br>
+<code> cd.. </code><br>
+<code> cd.. </code> <br>
+<code> set FLASK_APP=main.py </code><br>
+<code> set FLASK_ENV=dev </code><br>
+<code> set FLASK_DEBUG=1 </code><br>
+
 
 
 <h2>Project snapshot</h2>
